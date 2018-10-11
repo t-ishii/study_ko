@@ -5,6 +5,9 @@
   "repository": "git@github.com:t-ishii/study_ko.git",
   "author": "tatsuya ishii <perlispython.plp@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "build": "webpack"
+  },
   "devDependencies": {
     "ts-loader": "^5.2.1",
     "typescript": "^3.1.2",
