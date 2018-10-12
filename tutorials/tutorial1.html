@@ -9,11 +9,15 @@
 <body>
     <main>
         <section>
-            <h3>データバインド</h3>
+            <h3>Tutorial: Introduction</h3>
             <p>First name: <strong data-bind="text: firstName">todo</strong></p>
             <p>Last name: <strong data-bind="text: lastName">todo</strong></p>
+            <p>Full name: <strong data-bind="text: fullName"></strong></p>
+            <p>First name: <input data-bind="value: firstName"></p>
+            <p>Last name: <input data-bind="value: lastName"></p>
+            <button data-bind="click: capitalizeLastName">Go caps</button>
         </section>
     </main>
-    <script src="dist/tutorial1.js"></script>
+    <script src="../dist/tutorial1.ts.js"></script>
 </body>
 </html>
