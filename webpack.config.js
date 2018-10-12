@@ -1,6 +1,21 @@
+const fs = require('fs')
+const path = require('path')
+
+const getEntryFiles = () => {
+  const fileMap = {}
+  const tsFiles = fs.readdirSync('./src').filter((file) => /\.ts$/.test(file))
+  tsFiles.forEach(file => {
+    fileMap[file] = path.resolve(__dirname, path.join('src', file))
+  });
+  return fileMap
+}
+
 module.exports = {
   mode: 'development',
-  entry: './src/main.ts',
+  entry: getEntryFiles(),
+  output: {
+    filename: '[name].js'
+  },
   module: {
     rules: [
       {
@@ -11,7 +26,8 @@ module.exports = {
   },
   resolve: {
     extensions: [
-      '.ts'
+      '.ts',
+      '.js'
     ]
   }
-};
+}
