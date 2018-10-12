@@ -1,2 +1,3 @@
 # study_ko
-knockout.jsの動作確認等
+
+- http://learn.knockoutjs.com/ のチュートリアル
