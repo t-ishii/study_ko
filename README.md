@@ -1,3 +1,3 @@
 # study_ko
 
-- http://learn.knockoutjs.com/ のチュートリアル
+- http://learn.knockoutjs.com/ のチュートリアルをやっていく
