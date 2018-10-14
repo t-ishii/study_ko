@@ -31,6 +31,9 @@ class SeatReservation {
 class ReservationsViewModel {
     availableMeals: IMeal[];
     seats: any;
+    removeSeat: (SeatReservation) => void;
+    addSeat: () => void;
+    totalSurcharge: () => Number;
     constructor () {
         this.availableMeals = [
             new Meal('Standard (sandwich)', 0),
@@ -41,12 +44,19 @@ class ReservationsViewModel {
             new SeatReservation('Steave', this.availableMeals[0]),
             new SeatReservation('Bert', this.availableMeals[0])
         ]);
-    }
-    addSeat (): void {
-        this.seats.push(new SeatReservation('', this.availableMeals[0]));
-    }
-    removeSeat (seat: SeatReservation): void {
-        this.seats.remove(seat);
+        this.removeSeat = (seat: SeatReservation) => {
+            this.seats.remove(seat);
+        };
+        this.addSeat = () => {
+            this.seats.push(new SeatReservation('', this.availableMeals[0]));
+        };
+        this.totalSurcharge = ko.computed(() => {
+            let total = 0;
+            for (let seat of this.seats()) {
+                total += seat.meal().price;
+            }
+            return total;
+        });
     }
 }
 

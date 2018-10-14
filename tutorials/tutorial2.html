@@ -10,7 +10,8 @@
     <main>
         <section>
             <h3>Tutorial: Working with Lists and Collections</h3>
-            <button data-bind="click: addSeat">Reserve another seat</button>
+            <h4>Your seat reservations (<span data-bind="text: seats().length"></span>)</h4>
+            <button data-bind="click: addSeat, enable: seats().length < 5">Reserve another seat</button>
             <table>
                 <thead>
                     <th>Passenger name</th>
@@ -27,6 +28,9 @@
                     </tr>
                 </tbody>
             </table>
+            <h3 data-bind="visible: totalSurcharge() > 0">
+                Total surcharge $<span data-bind="text: totalSurcharge().toFixed(2)"></span>
+            </h3>
         </section>
     </main>
     <script src="../dist/tutorial2.ts.js"></script>
