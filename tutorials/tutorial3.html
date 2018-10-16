@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <section>
+            <h3>Tutorial: Single page applications</h3>
+            <ul data-bind="foreach: folders">
+                <li data-bind="text: $data, css: {selected: $data == $root.chosenFolderId()}, click: $root.goToFolder"></li>
+            </ul>
+        </section>
+    </main>
+    <script src="../dist/tutorial3.ts.js"></script>
+</body>
+</html>
