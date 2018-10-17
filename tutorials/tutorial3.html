@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <main>
+        <section>
+            <h3>Tutorial: Single page applications</h3>
+            <ul data-bind="foreach: folders">
+                <li data-bind="text: $data, css: {selected: $data == $root.chosenFolderId()}, click: $root.goToFolder"></li>
+            </ul>
+            <div class="viewMail" data-bind="with: chosenMailData">
+                <div class="mailInfo">
+                    <h1 data-bind="text: subject"></h1>
+                    <p><label>From</label>: <span data-bind="text: from"></span></p>
+                    <p><label>To</label>: <span data-bind="text: to"></span></p>
+                    <p><label>Date</label>: <span data-bind="text: date"></span></p>
+                </div>
+                <p class="message" data-bind="html: messageContent"></p>
+            </div>
+            <table class="mails" data-bind="with: chosenFolderData">
+                <thead>
+                    <tr>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Subject</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody data-bind="foreach: mails">
+                    <tr data-bind="click: $root.goToMail">
+                        <td data-bind="text: from"></td>
+                        <td data-bind="text: to"></td>
+                        <td data-bind="text: subject"></td>
+                        <td data-bind="text: date"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sammy@0.7.6/lib/sammy.min.js"></script>
+    <script src="../dist/tutorial3.ts.js"></script>
+</body>
+</html>
