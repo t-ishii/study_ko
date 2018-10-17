@@ -1,4 +1,7 @@
 import ko from './lib/knockout-3.4.2';
+
+export let Sammy: any;
+
 // ['Inbox', 'Archive', 'Sent', 'Spam']
 const mails = {
     Inbox: {
@@ -141,7 +144,7 @@ class WebmailViewModel {
 
     // Behaviours
     goToFolder: (string) => void;
-    goToMail: (string) => void;
+    goToMail: (any) => void;
 
     constructor () {
         this.folders = ['Inbox', 'Archive', 'Sent', 'Spam'];
@@ -149,21 +152,46 @@ class WebmailViewModel {
         this.chosenFolderData = ko.observable();
         this.chosenMailData = ko.observable();
 
-        this.goToFolder = (folder: string) => {
-            this.chosenFolderId(folder);
-            this.chosenMailData(null);
-            getMails(folder).then((res) => {
-                this.chosenFolderData(res);
-            });
-        };
-        this.goToMail = (mail: any) => {
-            this.chosenFolderId(mail.folder);
-            this.chosenFolderData(null);
-            console.log(mail);
-            this.chosenMailData(mails[mail.folder].mails.find(d => d.id === mail.id));
-        };
+        // this.goToFolder = (folder: string) => {
+        //     this.chosenFolderId(folder);
+        //     this.chosenMailData(null);
+        //     getMails(folder).then((res) => {
+        //         this.chosenFolderData(res);
+        //     });
+        // };
+        this.goToFolder = (folder: string) => location.hash = folder;
+        // this.goToMail = (mail: any) => {
+        //     this.chosenFolderId(mail.folder);
+        //     this.chosenFolderData(null);
+        //     console.log(mail);
+        //     this.chosenMailData(mails[mail.folder].mails.find(d => d.id === mail.id));
+        // };
+        this.goToMail = (mail: any) => location.hash = `${mail.folder}/${mail.id}`;
 
-        this.goToFolder('Inbox');
+        const self: WebmailViewModel = this;
+        window['Sammy'](function () {
+            this.get('#:folder', function () {
+                self.chosenFolderId(this.params.folder);
+                self.chosenMailData(null);
+                getMails(this.params.folder).then((res) => {
+                    self.chosenFolderData(res);
+                });
+            });
+
+            this.get('#:folder/:mailId', function () {
+                self.chosenFolderId(this.params.folder);
+                self.chosenFolderData(null);
+                self.chosenMailData(mails[this.params.folder].mails.find(
+                    d => d.id === parseInt(this.params.mailId, 10)
+                ));
+            });
+
+            this.get('', function () {
+                this.app.runRoute('get', '#Inbox');
+            });
+        }).run();
+
+        // this.goToFolder('Inbox');
     }
 }
 
